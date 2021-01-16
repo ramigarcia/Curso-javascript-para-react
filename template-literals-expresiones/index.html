@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Template Literals - expresiones</title>
+</head>
+<body>
+  <script>
+    // Expresiones
+    // Con las expresiones no solo podemos crear una variable e imprimirla, tambien podemos agregar logica dentro de ellas
+
+    const nombre = 'Ramiro'
+    // La variable (nombre) se vuelve una expresion cuando lo colocamos dentro de un Template Literal => ${nombre} 
+    console.log(`mi nombre es ${nombre}`)
+    // Un valor tambien es una expresion
+    console.log(`mi edad es ${16}`)
+    // Un string tambien es una expresion
+    // Al igual que booleano un objeto etc...
+    console.log(`Este es el curso de ${'JavaScript para React'}`)
+    // Como "x" no esta declarada como "const, var, let" lo que el navegador es ponerla dentro del Window
+    console.log(`Mi nombre es ${x = 'Ramiro'}`)
+    // Para poder declarar una funcion necesitamos ejecutarla
+    // Para poder ejecutarla debemos envolver la funcion entre parentesis y luego ejecutarla
+    // Ejemplo: console.log(`Mi nombre es ${(function name(){ return 'Rami' })()}`)
+    console.log(`Mi nombre es ${(function name(){ return 'Rami' })()}`)
+    // Se puede hacer lo mismo con unafuncion sin nombre
+    console.log(`Mi nombre es ${(function () { return 'Rama' })()}`)
+    // Tambien se puede ejecutar un Arrow Function
+    console.log(`Mi nombre es ${(() => { return 'Rama Arrow' })()}`)
+    // No se puede hacer un if Porque es una estructura de control y no una expresion
+    // console.log(`Mi nombre es ${if (true) { console.log('Rami console') } }`)
+    // Pero se puede aplicar un Ternario para hacer una expresion de una estructura de control de condicional
+    // Aplicando un Ternario
+    // TERNARIOS
+    // Un ternario es una expresion
+    // Para un ternario hay que aplicar una condicion inicial Ej: (true). Y si funciona puedo devolver un valor
+    console.log(`Mi nombre es  ${true && 'Ramiro Garcia Ternario'}`)
+    // Tambien podemos hacer que sea falsa
+    // `${false ? 'Ramiro true' : 'Ramiro false'}` (?)=>Si es verdadero (:)=>Si es falso
+    console.log(`Mi nombre es  ${false ? 'Ramiro Garcia True' : 'Ramiro Garcia False'}`)
+    // En React para renderizar una lista de elementos usamos (.map) y despues la funcion
+    console.log(`Mi nombre es  ${['a', 'b'].map(letra => `${letra}-styled`)}`)
+  </script>
+</body>
+</html>

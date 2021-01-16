@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio | JavaScript para React</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+  </div>
+  <script>
+    function component(strings, ...dynamicValues){
+      return function(props){
+        let newContent = strings.slice()
+        dynamicValues.forEach((value, index) => {
+          newContent[index] += props[value]
+        })
+        return newContent.join('')
+      }
+    }
+
+    const styled = {
+      nav: function(styles){
+        return function(content){
+          return `
+            <nav style="${styles}">
+              ${content}
+            </nav>
+          `
+        }
+      },
+    }
+
+    const NavBarStyled = styled.nav`
+      width: 100vw;
+      height: 60px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      background: #48e;
+      color: white;
+      font-weight: 600;
+      font-family: system-ui;
+      font-size: 40px;
+      text-decoration: none;
+    `
+
+    const props = {
+      message: 'No Te Rindas :)',
+    }
+
+    const NavBar = component`<marquee>${'message'}</marquee>`(props)
+
+    function render(component, container){
+      container.innerHTML = component
+    }
+
+    render(NavBarStyled(NavBar), window.container)
+  </script>
+</body>
+</html>

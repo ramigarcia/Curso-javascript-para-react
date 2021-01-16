@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tagged Template</title>
+  <!-- Es la mezcla de las funciones como la conocemos con los template literals que nos permitirán funciones avanzadas al poder modificar a nuestro gusto la cadena de texto final, volver a los ya dinámico mucho más dinámico. -->
+  <style>
+    body{
+      display: flex;
+      margin: 0;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      font-family: system-ui;
+      background-color: #f49097;
+      color: #f2f5ff;
+      font-size: 2em;
+      text-shadow: 1px 1px rgba(0, 0, 0, .5);
+    }
+
+    strong{
+      color: #f5e960;
+      padding: .15em .4em;
+      background: #dfb2f4;
+      border-radius: 20px;
+      border-radius: 2px solid #f2f5ff;
+    }
+  </style>
+</head>
+<body>
+  <!-- <p>El trabajo duro supera al talento natural</p> -->
+  <script>
+    //El primer parametro que lleva el Tagged Template van a ser los textos (strings), que hayan dentro de Template Literals
+    //El segundo parametro que lleva el Tagged Template van a ser los valores (values). Pero (values) no engloba a todos los valores dinamicos
+    //Los valores dinamicos son los parametros sub siguiente que le van a llegar a mi Tagged Template. Por eso usamos (param1, param2)
+    //Los (strings) van a ser un Array de (strings)
+    //Es un Array porque le podemos agregar valores dinamicos
+    //En el caso de que reciba mucho parametros, puedo hacer un resumen (Rest Operator) y envolverlos dentro de un Array con (...dynamicValues), luego de ... ponemos el valor que nosotros queramos
+    function taggedTemplate(strings, ...dynamicValues){
+      //console.log(strings, dynamicValues)
+      //La funcion (forEach()) recibe una funcion como parametro (function (){} Normal) o (() => {} Arrow Function). Esta funcion va a recibir como primer parametro el string que estoy iterando y como segundo parametro el indice de donde esta ubicado ese elemento (index), como es un Array empieza en 0
+      let newContent = ''
+      strings.forEach((string, index) => {
+        /* let strong = ''
+        if(dynamicValues[index]){
+          strong = `<strong>${dynamicValues[index]}</strong>`
+        } */
+        const strong = dynamicValues[index] ? `<strong>${dynamicValues[index]}</strong>` : ''
+        // console.log(dynamicValues[index])
+        // console.log(string)
+        // newContent = newContent + string + strong
+        newContent += `${string} ${strong}`
+      })
+      return `<p>${newContent}</p>`
+      // console.log(newContent)
+    }
+    const message = taggedTemplate`El ${'trabajo duro'} supera al ${'talento natural'}`
+    // Abajo se va a imprimir dentro del body la variable (message)
+    document.body.innerHTML = message
+  </script>
+</body>
+</html>

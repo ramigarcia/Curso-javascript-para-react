@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styled Components</title>
+  <!-- Styled Components Libreria para crear estulos en React.js mezcla la idea de crear componentes junto con la sintaxis de los template literals y gracias a los tagged templates nos entrega una sintaxis limpia -->
+</head>
+<body>
+  <div id="container"></div>
+  <script>
+    // funciont component(){} Es la funcion que vendria dentro de React
+    // Como el componente lo va a armar un Template Literal la funcion "component" vas a recibir como parametros "strings, ...dynamicValues"
+    function component(strings, ...dynamicValues){
+      return function(props){
+        // newContent va a ser igual a mis "strings" bases 
+        // Tengo que generar una copia en memoria de ese Array porque sino los "strings" que estan como parametro no los puedo mutar
+        // Para eso voy a usar una funcion de JavaScript para los Arrays que se llama "slice"
+        // Con "slice" voy a generar una copia identica de los string que voy a guardar dentro de "newContent"
+        
+        // Una vez echo esto tengo que modificar las entradas que tienen los elementos del Array
+        let newContent = strings.slice()
+        console.log(newContent)
+        // Ahora tengo que iterar cada uno de mis valores dynamicos "dynamicValues" == "message". Y voy a tomar el "string" mas cercano y voy anexarle ese mensaje "message"
+        // Para eso a "dynamicValues" tengo que hacerle un "forEach"
+        // "forEach" recibe una funcion por parametro la cual recibe dos parametros "value, index"
+        // En este caso el valor "value" que vamos a iterar es el mensaje "message"
+        // El parametro "index" nos va a cerbir como indice. Ejemplo: 0, 1, 2, etc...
+        dynamicValues.forEach((value, index) => {
+          newContent[index] += props[value]
+        })
+        // return 'valor'
+        return newContent.join('')
+      }
+      // Retornamos un Valor
+    }
+    // Ya que estuvimos trabajando con los tempplate Literals vamos a hacer que el componente lo arme un Template Literal
+
+
+    const styled = {
+      h1: function(styles){
+        return function(content){
+          return `
+            <h1 style="${styles}">
+              ${content}
+            </h1>
+          `
+        }
+      },
+      h2: '',
+      div: '',
+    }
+
+    const TitleStyled = styled.h1`
+      font-family: system-ui;
+      color: orange;
+      font-size: 50px;
+      text-shadow: 2px 2px 0 black;
+      line-height: 100vh;
+    `
+
+    // Como "component" es un template colocamos los backticks (``)
+    // const user = component``
+
+    // Como no estamos en React, las propiedades las voy a tener declaradas abajo
+    const props = {
+      message: 'No Te Rindas',
+    }
+
+    // Este "componente" va recibir propiedades
+    // Al momento de pasarle las propiedades lo que yo espero es que "component" sea una Funcion y no lo es. Para eso tengo que "retornar" una funcion en la funcion "component". Esa funcion va a recibir como parametro las propiedades "props" y retornar valor
+    const Title = component`<marquee> ${'message'} </marquee>`(props)
+
+    // React DOM tiene un funcion que se llama "render"
+    // "render" recibe dos parametros "component, container"
+    // Lo que va a hacer a funcion va a ser agarrar al container insertar Html == lo que venga dentro de "component"
+    // "component" va a devolver un string completo. Que se va a colocar en el container a manera de Html
+    // "component" tiene que ser un elemento del DOM
+    function render(component, container){
+      container.innerHTML = component
+    }
+
+    // Se llama a la funcion "render" le pasamos el componente (en este caso el componente es 'hola, mundo') y luego el container (en este caso es) "document.body"
+    // Pero no es recomendable hacerlo de esa manera
+    // En el API  de React, tenemos que ponerlo dentro de un elemento HTML con un ID
+    // Por defecto cuando tengo un elemento con algun "ID" en el "DOM" se me crea dentro de "Window" el elemnto con su "ID"
+
+    // Hay que darle un cuerpo al componente "component"
+    // Para eso creamos una funcion especial que asemeje la funcion de los componentes
+
+    // La constante "user" tiene el component asi que para renderisar nuestro componente cambiamos el string ('hola, mundo') por "user"
+    // Y como en funcion component retornamos el string "valor" dentro de container va a aparecer "valor"
+    render(TitleStyled(Title), window.container)
+</script>
+</body>
+</html>
